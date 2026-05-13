@@ -21,7 +21,9 @@ A modern, beautiful web app for analyzing Telegram chat exports and generating c
 ## 🎯 Dashboard Overview
 
 ### 📊 Overview Tab
+
 View at a glance what's happening in your chat:
+
 - 4 Key Summary Cards (messages, participants, avg length, media %)
 - Top 5 Contributors with message counts
 - Hourly Activity Pattern (24-hour breakdown)
@@ -30,30 +32,37 @@ View at a glance what's happening in your chat:
 - Day-of-Week Activity Bar Chart
 
 ### 🔍 Detailed Analytics Tab
+
 Deep dive into conversation patterns with 40+ metrics:
 
 **Core Statistics**
+
 - Total messages, unique participants, date range
 - Messages per person per day, active days count
 
 **Response Patterns**
+
 - Average reply time, fastest/slowest responses
 - Ignored messages count
 
 **Conversation Flow**
+
 - Longest conversation streak
 - Longest inactive period
 - Peak activity day/hour/month
 
-**Media Breakdown** 
+**Media Breakdown**
+
 - Photos, videos, voice notes, GIFs, stickers, documents, links
 - Click any media type to browse and view actual files
 
 **Sentiment Analysis**
+
 - Positive/neutral/negative percentages
 - Per-user sentiment breakdown
 
 **Relationship Insights** (5 scores: 0-100)
+
 - Mutual Engagement Score
 - Communication Balance
 - Interaction Consistency
@@ -61,18 +70,23 @@ Deep dive into conversation patterns with 40+ metrics:
 - Activity Synchronization
 
 **Top Phrases**
+
 - 15 most recurring 2+ word combinations
 - Example usage for context
 
 ### 🤖 AI Analysis Tab
+
 Auto-generated insights:
+
 - Relationship Summary
 - Communication Style Profile
 - Main Topics Discussed (with frequency)
 - Key Events & Milestones
 
 ### 📥 Export Tab
+
 Download your insights:
+
 - **Analytics CSV** - All metrics in spreadsheet format
 - **Messages CSV** - Full message log with metadata
 - **PDF Report** - Multi-page professional report
@@ -93,6 +107,7 @@ Download your insights:
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Modern browser (Chrome, Firefox, Safari, Edge)
 - Node.js 16+ and npm
 
@@ -167,21 +182,25 @@ telegram_chat_analyzer/
 ### What Gets Measured?
 
 **Participation**
+
 - Who talks the most?
 - How consistent are people?
 - What's the peak activity time?
 
 **Content**
+
 - Most used words
 - Emoji reactions and who uses them
 - Types of media shared
 
 **Dynamics**
+
 - How fast do people respond?
 - Are conversations continuous or sporadic?
 - When is everyone most active?
 
 **Sentiment**
+
 - Positive vs. negative tone
 - Relationship intensity
 - Communication balance between members
@@ -197,9 +216,10 @@ telegram_chat_analyzer/
 ✅ No data stored on servers  
 ✅ Files never leave your computer  
 ✅ Exports saved locally only  
-✅ Works 100% offline after first load  
+✅ Works 100% offline after first load
 
 **The only external requests:**
+
 - Loading the web app itself (once)
 - Optional: Emoji font from CDN
 
@@ -209,16 +229,17 @@ No telemetry. No tracking. No analytics on your use.
 
 ## 🛠 Technology Stack
 
-| Layer | Tech |
-|-------|------|
-| **Frontend** | React 18 + TypeScript |
-| **Build** | Vite |
-| **Styling** | Tailwind CSS |
-| **Routing** | React Router v6 |
-| **Parsing** | DOMParser (Browser API) |
-| **Export** | CSV text generation + Print API |
+| Layer        | Tech                            |
+| ------------ | ------------------------------- |
+| **Frontend** | React 18 + TypeScript           |
+| **Build**    | Vite                            |
+| **Styling**  | Tailwind CSS                    |
+| **Routing**  | React Router v6                 |
+| **Parsing**  | DOMParser (Browser API)         |
+| **Export**   | CSV text generation + Print API |
 
 ### Browser APIs Used
+
 - File API (webkitRelativePath for folder access)
 - localStorage (temporary data storage)
 - DOMParser (HTML parsing)
@@ -229,12 +250,14 @@ No telemetry. No tracking. No analytics on your use.
 ## 📋 Browser Support
 
 **Works on:**
+
 - ✅ Chrome 90+
 - ✅ Firefox 88+
 - ✅ Safari 14+
 - ✅ Edge 90+
 
 **Requires:**
+
 - ES6+ JavaScript
 - File API with folder access
 - Modern CSS (Grid, Flexbox)
@@ -243,31 +266,39 @@ No telemetry. No tracking. No analytics on your use.
 
 ## 🐛 Troubleshooting
 
-### "No messages*.html files found"
+### "No messages\*.html files found"
+
 **Issue:** Upload folder doesn't contain HTML files  
 **Solution:**
+
 1. Make sure you exported as HTML (not JSON)
 2. Check that folder contains `messages.html` or `messages1.html`, etc.
 3. Upload the entire folder structure, not just individual files
 
 ### Media Not Showing
+
 **Issue:** Photos/videos don't display  
 **Solution:**
+
 1. Ensure you uploaded the complete folder
 2. Media files should be in `photos/`, `videos/`, etc.
 3. Check browser console (F12) for errors
 4. Try a fresh upload
 
 ### Analysis Takes Too Long
+
 **Issue:** Processing is slow with large chats  
 **Solution:**
+
 1. This is normal for chats with 100k+ messages
 2. Let it complete (can be 30+ seconds for huge exports)
 3. Close other browser tabs to free up memory
 
 ### Storage Quota Exceeded
+
 **Issue:** Browser localStorage is full  
 **Solution:**
+
 1. Clear browser cache/cookies
 2. Use incognito mode for next analysis
 3. Try a smaller chat export
@@ -285,6 +316,7 @@ npm run preview
 Output: Static files in `dist/` folder ready to deploy
 
 **Deploy to:**
+
 - Vercel (zero config)
 - Netlify (zero config)
 - GitHub Pages
@@ -295,6 +327,7 @@ Output: Static files in `dist/` folder ready to deploy
 ## 💡 Tips & Tricks
 
 **For Best Results:**
+
 - 📌 Use recent chat exports (more consistent format)
 - 🎯 Single-chat exports analyze faster than multi-chat
 - 💾 Don't refresh during analysis (data will be lost)
@@ -306,18 +339,21 @@ Output: Static files in `dist/` folder ready to deploy
 ## 📝 Features in Depth
 
 ### Media Viewer
+
 - Browse all photos/videos in a chat
 - View message context (sender, time, caption)
 - See who reacted with what emoji
 - Click to open full-size or play video
 
 ### Export Options
+
 - **CSV** - Open in Excel/Google Sheets
 - **PDF** - Share with others or print
 - **Print** - Customizable via browser print settings
 - All exports respect active date filters
 
 ### Date Filtering
+
 - In Detailed tab, set "From Date" and "To Date"
 - All metrics recalculate automatically
 - Perfect for analyzing specific periods
@@ -356,6 +392,7 @@ MIT License - Feel free to use, modify, and share
 Built with ❤️ by [Yonatan Ashenafi](https://github.com/yoni-clef)
 
 **Connect:**
+
 - 🔗 [LinkedIn](https://www.linkedin.com/in/yonatan-ashenafi-80a798264/)
 - 🐙 [GitHub](https://github.com/yoni-clef)
 - 💬 [Telegram](https://t.me/yoni_clef)

@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="am">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ጥበብ ከመድረሷ - Wisdom and Joy</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Segoe UI", "Abyssinica SIL", "Noto Sans Ethiopic", Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 40px 20px;
+        line-height: 1.8;
+        color: #333;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 40px;
+        text-align: center;
+        border-bottom: 5px solid #764ba2;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        line-height: 1.4;
+      }
+
+      .subtitle {
+        font-size: 1.1em;
+        opacity: 0.95;
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
+
+      .content {
+        padding: 50px 40px;
+      }
+
+      .part {
+        margin-bottom: 50px;
+      }
+
+      .part-title {
+        font-size: 1.5em;
+        color: #667eea;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #667eea;
+        font-weight: 600;
+      }
+
+      .dialogue {
+        margin-bottom: 25px;
+      }
+
+      .speaker {
+        display: inline-block;
+        font-weight: 700;
+        color: #667eea;
+        font-size: 1.1em;
+        margin-right: 10px;
+        min-width: 30px;
+      }
+
+      .speaker.e {
+        color: #e94b3c;
+      }
+
+      .speaker.y {
+        color: #00b386;
+      }
+
+      .message {
+        display: inline;
+        font-size: 1.05em;
+        color: #555;
+        word-wrap: break-word;
+      }
+
+      .emoji {
+        margin: 0 2px;
+        font-size: 1.2em;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 40px 0;
+        color: #ccc;
+        font-size: 1.5em;
+      }
+
+      .footer {
+        background: #f8f9ff;
+        padding: 30px 40px;
+        text-align: center;
+        border-top: 2px solid #e0e0e0;
+        font-size: 0.95em;
+        color: #888;
+      }
+
+      .footer p {
+        margin: 8px 0;
+      }
+
+      /* Print styles */
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+
+        .container {
+          box-shadow: none;
+          border-radius: 0;
+          max-width: 100%;
+        }
+
+        .header {
+          page-break-after: avoid;
+        }
+
+        .part {
+          page-break-inside: avoid;
+        }
+
+        .dialogue {
+          page-break-inside: avoid;
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        body {
+          padding: 20px 10px;
+        }
+
+        .container {
+          border-radius: 10px;
+        }
+
+        .header {
+          padding: 40px 25px;
+        }
+
+        .header h1 {
+          font-size: 1.8em;
+        }
+
+        .content {
+          padding: 30px 25px;
+        }
+
+        .part-title {
+          font-size: 1.2em;
+        }
+
+        .message {
+          font-size: 1em;
+        }
+      }
+
+      /* Line breaks for formatting */
+      .line-break {
+        display: block;
+        height: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>ርዕስ ፡ ጥበብ ከመድረሷ፤ ደስታን መለገሷ ፤ ግጥምን ወደ ክብሩ እላይ መለኮሷ</h1>
+        <p class="subtitle">
+          Title: Wisdom from Her Residence, Joy's Greeting, Poetry to His Glory
+        </p>
+      </div>
+
+      <div class="content">
+        <!-- PART 1 -->
+        <div class="part">
+          <div class="part-title">ክፍል 1 - Part 1</div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message">ዘንግቼው ኖሯል😁</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message">አአአይ እቴኑ...አረጀሽ እንዴ?😁</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message">😁😁 ቆየው ትውስታዬ ነበር የቀረው እሱም እየሄደ አስቸገረ</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >እኔማ ኮረዳ መስለሽኝ<br />
+              እድሜሽ መብርሩን አልተገለጠልኝ<br />
+              ትውስታሽ እንድድሜሽ በጣም ከበረረ<br />
+              ማስታወስ የድሮ ሀይልሽ ከነበረ<br />
+              አስታዋሽ ወጣቶች አጠገብሽ አለን<br />
+              ጠይቂን በደንብ እንነግርሻለን። 😂<br />
+              እቴኑ ጠይቂ<br />
+              ሰውን እንዳታፍሪ እንዳትሳቀቂ!😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >🔥🔥🔥🔥😁😁 owww<br />
+              ante 👏👏👏👏🤭🤭</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ኦውውው ብቻ ብለሽ አትቀሪም<br />
+              ትውስታም ይመጣል፤<br />
+              በረሽ ትወጫለሽ ከመርሳት ዓለም።<br />
+              ዕድሜሽ ይታደሳል<br />
+              እርጅናውም ቀርቶ ሀይልሽ ይመለሳል።😂😂<br />
+              አሜን ነው?!</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ከኔ ቀረ ስልህ ቅኔ ነበረ<br />
+              እርሱም እንደሰው አስቸገረ<br />
+              አሜን አሜን😁😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message">🔥🔥 ere yehone sew</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ሰው ላይ መታመኑን ወዲያ በዪውና<br />
+              ያንቺ መታመኛሽ ትውስታሽ ይመለስ እኛን ጠይቂና😀</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እሺ ልጠይቅህ ልወቀው ወጣቱ<br />
+              ከተመለሰልኝ ይሁና መምጣቱ😁😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ትውስታ እንደ እሳት ከሚንቀለቀልበት<br />
+              ከወጣት አዕምሮ ከሀይለኛው ቦታ<br />
+              ያንቺ አዕምሮ ላይ ትንሽዬ እሳት እንለኩስበት።<br />
+              ጠይቂኝ በሞቴ...እ😂</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እድሜ እደበለጥኩህ ይህንን አውቃለው<br />
+              ትውስታ ልብ ላይ እንጂ ከአዕምሮ ቦታ የለው<br />
+              በሳይንሱ ሳይሆን ከህይወት ተምሪያለው😁😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ኧረረረረረ<br />
+              ትውስታን ከአዕምሮ ወደልብ ወሰድሽው?<br />
+              ለምን ይሆን ባንድ ድንጋይ ሁለት መምታት የፈለግሽው?<br />
+              ትውስታንም መርጋቱንም ባንዴ የወሰድሽው..?<br />
+              መርጋቱን ውሰጂ ትውስታውን ተዪ<br />
+              ከጉልበታም ወጣት please አትጣዪ!</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message">Ere zuru kerual 🔥🔥</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >በእድሜ መርጋቱን እኛ ባንክድም<br />
+              ትውስታን ስትዘርፊን ዝም አንልም!<br />
+              አዎ ዝም አንልም!<br />
+              ለአንዲት ያረጀች እጅ አንሰጥም!</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እውነት ነው ወጣቱ አንተ ሀይሉ አለህ<br />
+              ጊዜ ጥሎኝ እንጂ አስንቅህ ነበረ<br />
+              ጊዜ ክፉ ለሰው አፉ ያሰጠኝ ጀመረ<br />
+              ግደለም አትደርስበት ነገር አትኩራራ<br />
+              ጊዜ ይጥላል ማን በግሮት በፉከራ😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >አይይ እቴኑ<br />
+              እኔ መች ኩራሁኝ...<br />
+              የጊዜን መጣል ለኔ አትመኝ!<br />
+              ትውስታን ከኛ መርጋቱንም ካንቺ share እናርግ አልኩኝ...<br />
+              በመሀላችን ያለን ድልድይ ሰርተንበት እንቀጥል ባልኩኝ<br />
+              ጊዜ ይጥልሀል እያልሽ ፍርሀት ሽብር አትልቀቂብኝ።<br />
+              እንስማማ?<br />
+              ትውስታን ውሰጂ መርጋቱን እንውሰድ<br />
+              መለያየት ትተን እናስቀጥል ትውልድ?!<br />
+              እ?</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ትውስታ ሚነሳው መስሎኝ ካሳለፈው<br />
+              ያሳለፈው ካለው ሚነገር ካፈራው<br />
+              ወጣት ነኝ አላልክም ገና አፍላ ጉብል<br />
+              ታድያ መች ኑረህ ነው ትውስታ አለኝ ምትል😁<br />
+              😁😁😁😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >damn damn😂<br />
+              እቴኑ ተነሳች ታጠቃ ወገቧን<br />
+              መልስ ምቷ ከብዷል በጣም አጠቃን..<br />
+              ብል ደስ ይለኝ ነበረ<br />
+              የእቴኑም ልብ በደስታ ይሰክር ነበረ..<br />
+              በእርስዎ እድሜ ማስታወስ ከባድ መሆኑን እንዴት አያውቁም?<br />
+              ዕውቀት ቢያጥሮት google አይጠይቁም?</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message">ere😁😁😁</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message">እቴንዬ</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message">😁😁አቤት ወጣቱ</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >እንስማማ እንጂ<br />
+              እንዴት ይሆናል ተጣልተን በስንቱ?</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እንስማማለን እንዳልከው ከኔ መርጋትን ከአንተ ትውስታን እንወስዳለን 👍</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ትልቅ ኖት በውነቱ<br />
+              much love ከወጣቱ❤😂</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >😁😁 እንግዲ መርጋት ይበልጣል በወጣትነት<br />
+              እኔም አልረሳም አንተን ማስታወስ😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >እሰይ እቴኑዋ<br />
+              ልዋጥሽ?!😂😂😂😂</span
+            >
+          </div>
+        </div>
+
+        <div class="divider">─ ✦ ─</div>
+
+        <!-- PART 2 -->
+        <div class="part">
+          <div class="part-title">ክፍል 2 - Part 2</div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >😁😁ante bhuala yemerm telek sew endalmeslh</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message">ትልቅ ሰውማ ነሽ😊😀</span>
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ብዙ ሳትኖር የበሰልከው<br />
+              አንተ ነህ ትልቅ ሰው😁😊</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >እሳትና ውሀ ሆነን እንዳልተጣላን<br />
+              ዛሬ በመስማማት ሆኗል ውብ ድንቅ ቀን..😁<br />
+              አቦ ፈገግታ ከፊትሽ አይጥፋ<br />
+              የሰው ደስታ ሁኚ፤ዳርቻሽም ይስፋ<br />
+              ዝም ብሎ መፈገግ ሆኗል የኔ ስራ<br />
+              ውስጤ ቦግ ብሏል በደስታ ደመራ😂</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እኔም ደስተኛ ነኝ ስለተታረቅን<br />
+              በጣም ደስ ብሎኛል ስላልተኳረፍን<br />
+              መመረቅ ቻልክበት መርጋት ተምረኅል<br />
+              የደስታህ ደመራ ከሩቁ ያበራል 😁<br />
+              አሜን አሜን ብዬ ምርቃት ልቀበል<br />
+              የሰው ደስታ ያርገኝ እንዳንተው የአፍ ቃል😊😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ደመራውን ብቻ እያየሸ ዝም አትበይ<br />
+              ፈዘዝ ሲልብሽ የደስታሽን ክብሪት ይዘሽ ከተፍ በይ።<br />
+              ለኩሺው አድምቂው<br />
+              የደስታን ጋዝ ደፍተሽ ቦግ ደመቅ አርጊው<br />
+              እ?🙂<br />
+              ያርገኝ አይባልም already you are<br />
+              You have the energy ድብርት የሚያባርር😀😊</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እመጣለው አልቀርም የደስታ ጋዝ ይዤ<br />
+              ነዳጅ ጠፍቷል አሉ እንዴት እመጣለው ተጉዤ ተጉዤ 😁 አታስብልኝም እ😁?</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >እድሜ ለቴሌ ብር እድሜ ለሲቢኢ<br />
+              ጋዝ ይዞ ለመምጣት አንዳች አታስቢ!<br />
+              እልክልሻለሁ ከተፍ ትያለሽ<br />
+              በደስታ በፌሽታ ልታደርጊኝ በሽ!</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >መኪናው ነው እንጂ ብሩ መች ቸገረኝ<br />
+              እንጂማ እኔ ላንተ ፈጥኜ ነው ምገኝ 😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ነዳጅ ከተሞላ መኪና ሞልቷል<br />
+              ወይስ የራስ መኪና ነው ልብሽ የሚከጅል?</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ምን አመጣ ብዬ እኔ ከጅላለው<br />
+              አይደለም በውኔ በህልሜም አላየው</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >ታዲያ የነዳጅ ልቻልና ነይኮ ነው ምልሽ<br />
+              አሻፈረኝ ካለሽ ሀዋሳ ልምጣልሽ?<br />
+              እ?😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >እንግዳ ተቀባይ ናት ውቢቷ ሀዋሳ<br />
+              ከተፍ በልና ልጋብዝህ አሳ 😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >እናሳ!!<br />
+              ትልቅ ልብ አለሽ ለሰው የሚሳሳ<br />
+              ፈንቅሎ የሚያወጣ ከድብርት አበሳ...<br />
+              የኔ አንበሳ...😂<br />
+              መጣለው ሀዋሳ<br />
+              እንበላለን አሳ<br />
+              ቃሌን አላጥፍም አይደለው የዋዛ😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ስያዩህ ምታስፈራ ለሰው ትመስላለህ<br />
+              አስቂኝ ተጫዋኝ ቀልደኛ ቢጤ ነህ<br />
+              ጥርሴ አልተከደነም ይኸው እስቃለው<br />
+              ያንተ ነገርማ አጀብ ነው ሚያሰኘው😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >አንደው ማድነቅ ሆኖብሽ ነው እንጂ<br />
+              ሳቅ ህይወትሽ አይደለ ወይ ተይ አንቺ ልጂ!?<br />
+              ብቻ ደስ ሚለው ማስፈራ መምሰሌ<br />
+              ሳቅና ኮሜዲ መሆኑ አመሌ።😁<br />
+              ሳቂ እሺ?!<br />
+              መቼም አታልቅሺ</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ሳቅን ለኔ እንተመኘህ ላንተም ደስታ ይሁንልህ<br />
+              ልብህ ቅን በመሆኑ ለኔ ሳቅን ተመኝተኅል<br />
+              ደግ የተመኘውን እግዜር ልቡን ይጠብቃል 😊</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >አሜን አሜን<br />
+              አሜን አሜን😀😊<br />
+              አአአአይ ኤልዳና<br />
+              ባንቺ ምክንያት የረሳሁት ግጥም ወረደ ጨመረ እንደስራኤል መና።<br />
+              ከጥበብ ከሳቅ ጋር ይበልጥ ተወዳጀሁ<br />
+              ስላወራን በደንብ አመሰግናለሁ።🙏😊<br />
+              ኤልዳና ብዬ ከጀመርኩ አይቀር<br />
+              የስምሽን ትርጉም ንገሪኝ ከአዕምሮዬ ይቅር😊</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >በውሉ አላውቀውም የስሜን ትርጉም<br />
+              ጥቂት አመጣጡን ልግለፅ በግጥም<br />
+              <br />
+              ግን መፅሐፍ ቅዱስ ላይ "ህልዳና" ምትባል አለች አንድ ነብይ<br />
+              የፊቱን የፊቱን የምትተነብይ<br />
+              "የእግዚአብሔር አገልይ" ሲሉ ሰምቻለው<br />
+              ትርጉም አልባ ከምሆን እርሱን አምኛለው</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >😀😀<br />
+              ትርጉሙን ባታውቂው<br />
+              ምንም ችግር የለው<br />
+              ሲጠራ ማማሩ ከበቂ በላይ ነው<br />
+              የሚስማማሽን ትርጉም መምረጡን ወደጄዋለው!😀😊</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker e">E:</span>
+            <span class="message"
+              >ስም ደስ የሚለው ትርጉም ሲኖረው<br />
+              ከማንነት ጋራ አብሮ ሲሄድ ነው<br />
+              የኔን ስም ተጠሮቶ ከዛ እኔ ስታይ<br />
+              ምንም ትርጉም አይሰጥ ያስብላል ዋይ ዋይ<br />
+              ፈልገው ሲጠሩህ ሲያነሱ ስምህን<br />
+              እኔ ልሙት እኔ ልሙት ስልህ ቁርጥ ዮናታንን😁😁😁<br />
+              ዮናታን ነህ አይደል??😁😁</span
+            >
+          </div>
+
+          <div class="dialogue">
+            <span class="speaker y">Y:</span>
+            <span class="message"
+              >😂😂😂<br />
+              😂😂😂<br />
+              አው ዮናታን ነኝ<br />
+              ቤት የሚመታ ሳቅን አስቅሺኝ።<br />
+              እውነቱን እወቂው<br />
+              ኤልዳና ካንቺጋር ግጥም(ይጠብቃል😀) ነው ያለው።<br />
+              አይስብልም ዋይ<br />
+              መልአክ ነው ያወጣው ያስብላል እሰሰይ!</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>📖 A Beautiful Conversation About Wisdom, Joy, and Memory</p>
+        <p>✨ Created with Love | Celebrating the Art of Amharic Poetry</p>
+        <p>Generated • May 2026</p>
+      </div>
+    </div>
+  </body>
+</html>
