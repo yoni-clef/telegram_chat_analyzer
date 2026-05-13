@@ -353,7 +353,12 @@ MIT License - Feel free to use, modify, and share
 
 ## 🙏 Credits
 
-Built with ❤️ by [Your Name]
+Built with ❤️ by [Yonatan Ashenafi](https://github.com/yoni-clef)
+
+**Connect:**
+- 🔗 [LinkedIn](https://www.linkedin.com/in/yonatan-ashenafi-80a798264/)
+- 🐙 [GitHub](https://github.com/yoni-clef)
+- 💬 [Telegram](https://t.me/yoni_clef)
 
 Inspired by Telegram's official stats but with a focus on privacy and depth of analysis.
 

@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import { DashboardPage } from "./pages/Dashboard";
 import { UploadPage } from "./pages/Upload";
+import { AuthorInfo } from "./components/AuthorInfo";
 
 export function App() {
   return (
@@ -15,6 +16,7 @@ export function App() {
             Upload
           </NavLink>
         </nav>
+        <AuthorInfo />
       </header>
 
       <main className="px-6 py-8">

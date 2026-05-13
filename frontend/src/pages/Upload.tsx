@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loadHtmlFiles, formatFileSize, formatDateRange } from "../services/fileUtils";
 import { parseHtmlFile, aggregateMessages } from "../services/telegramParser";
 import { analyzeChat } from "../services/analytics";
+import { InstructionsCard } from "../components/InstructionsCard";
 
 export function UploadPage() {
   const [files, setFiles] = useState<File[] | null>(null);
@@ -75,71 +76,75 @@ export function UploadPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-sm">
-      <h1 className="text-xl font-semibold">Analyze Telegram Chat</h1>
-      <p className="text-sm text-ink/60 mt-1">Upload a Telegram HTML export folder for instant local analysis.</p>
-      <form className="mt-4 space-y-3" onSubmit={handleAnalyze}>
-        <input
-          ref={fileInputRef}
-          className="hidden"
-          type="file"
-          accept=".json,.zip,.html"
-          multiple
-          onChange={handleSelect}
-        />
-        <input
-          ref={folderInputRef}
-          className="hidden"
-          type="file"
-          webkitdirectory="true"
-          directory="true"
-          multiple
-          onChange={handleSelect}
-        />
-        <div className="grid gap-2 sm:grid-cols-2">
-          <button
-            className="rounded-lg border px-4 py-2 text-ink disabled:opacity-50"
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isAnalyzing}
-          >
-            Choose file
-          </button>
-          <button
-            className="rounded-lg border px-4 py-2 text-ink disabled:opacity-50"
-            type="button"
-            onClick={() => folderInputRef.current?.click()}
-            disabled={isAnalyzing}
-          >
-            Choose folder
-          </button>
-        </div>
-        <button 
-          className="w-full rounded-lg bg-accent px-4 py-2 text-white disabled:opacity-50" 
-          type="submit"
-          disabled={isAnalyzing || !files}
-        >
-          {isAnalyzing ? "Analyzing..." : "Analyze"}
-        </button>
-        {files && (
-          <div className="text-xs text-ink/60">
-            {files.length} file(s) selected
-            {files.length > 0 && (
-              <div className="mt-2 space-y-1">
-                {files.slice(0, 3).map((f) => (
-                  <div key={f.name}>{f.name} ({formatFileSize(f.size)})</div>
-                ))}
-                {files.length > 3 && <div className="text-ink/40">... and {files.length - 3} more</div>}
-              </div>
-            )}
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white p-6 rounded-2xl shadow-sm">
+        <h1 className="text-2xl font-bold text-ink mb-2">Analyze Your Telegram Chat</h1>
+        <p className="text-sm text-ink/60 mb-6">Upload a Telegram HTML export folder for instant local analysis. All processing happens in your browser—completely private and secure.</p>
+        <form className="mt-4 space-y-3" onSubmit={handleAnalyze}>
+          <input
+            ref={fileInputRef}
+            className="hidden"
+            type="file"
+            accept=".json,.zip,.html"
+            multiple
+            onChange={handleSelect}
+          />
+          <input
+            ref={folderInputRef}
+            className="hidden"
+            type="file"
+            webkitdirectory="true"
+            directory="true"
+            multiple
+            onChange={handleSelect}
+          />
+          <div className="grid gap-2 sm:grid-cols-2">
+            <button
+              className="rounded-lg border px-4 py-2 text-ink disabled:opacity-50"
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isAnalyzing}
+            >
+              Choose file
+            </button>
+            <button
+              className="rounded-lg border px-4 py-2 text-ink disabled:opacity-50"
+              type="button"
+              onClick={() => folderInputRef.current?.click()}
+              disabled={isAnalyzing}
+            >
+              Choose folder
+            </button>
           </div>
-        )}
-        {status && (
-          <div className={`text-sm p-2 rounded ${status.includes("failed") ? "bg-red-50 text-red-700" : "bg-blue-50 text-blue-700"}`}>
-            {status}
-          </div>
-        )}
-      </form>
+          <button 
+            className="w-full rounded-lg bg-accent px-4 py-2 text-white disabled:opacity-50 font-medium" 
+            type="submit"
+            disabled={isAnalyzing || !files}
+          >
+            {isAnalyzing ? "Analyzing..." : "Analyze"}
+          </button>
+          {files && (
+            <div className="text-xs text-ink/60">
+              {files.length} file(s) selected
+              {files.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  {files.slice(0, 3).map((f) => (
+                    <div key={f.name}>{f.name} ({formatFileSize(f.size)})</div>
+                  ))}
+                  {files.length > 3 && <div className="text-ink/40">... and {files.length - 3} more</div>}
+                </div>
+              )}
+            </div>
+          )}
+          {status && (
+            <div className={`text-sm p-2 rounded ${status.includes("failed") ? "bg-red-50 text-red-700" : "bg-blue-50 text-blue-700"}`}>
+              {status}
+            </div>
+          )}
+        </form>
+      </div>
+
+      <InstructionsCard />
     </div>
   );
 }
