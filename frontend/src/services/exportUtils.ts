@@ -98,13 +98,15 @@ export function exportAnalyticsAsPDF(
 ) {
   try {
     if (isMobileBrowser()) {
-      downloadPDFBlob(createAnalyticsPDFBlob(analytics, chatData), filename);
+      void downloadStyledPDF(analytics, chatData, filename).catch((error) => {
+        console.error("PDF export error:", error);
+        alert("PDF export failed. Please try again.");
+      });
       return;
     }
 
     // Create a comprehensive HTML page for PDF export
-    const pdfDataUrl = createAnalyticsPDFDataUrl(analytics, chatData);
-    const htmlContent = createComprehensivePDFContent(analytics, chatData, filename, pdfDataUrl);
+    const htmlContent = createComprehensivePDFContent(analytics, chatData, filename);
     
     // Open in new window for printing
     const printWindow = window.open("", "_blank");
@@ -129,205 +131,68 @@ function isMobileBrowser(): boolean {
   return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 }
 
-function createAnalyticsPDFBlob(analytics: AnalyticsResult, chatData: ChatData): Blob {
-  return new Blob([createAnalyticsPDFDocument(analytics, chatData)], {
-    type: "application/pdf",
-  });
+async function downloadStyledPDF(
+  analytics: AnalyticsResult,
+  chatData: ChatData,
+  filename: string
+) {
+  const html2pdf = (await import("html2pdf.js")).default;
+  const renderRoot = createPDFRenderRoot(analytics, chatData, filename);
+
+  document.body.appendChild(renderRoot);
+
+  try {
+    await html2pdf()
+      .set({
+        filename,
+        margin: 0,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          backgroundColor: "#ffffff",
+          scale: Math.min(2, window.devicePixelRatio || 1.5),
+          useCORS: true,
+        },
+        jsPDF: {
+          unit: "pt",
+          format: "letter",
+          orientation: "portrait",
+        },
+        pagebreak: {
+          mode: ["css", "legacy"],
+          before: ".page-break",
+        },
+      })
+      .from(renderRoot.querySelector(".page"))
+      .save();
+  } finally {
+    document.body.removeChild(renderRoot);
+  }
 }
 
-function downloadPDFBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  link.type = "application/pdf";
-  link.style.display = "none";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function createAnalyticsPDFDataUrl(analytics: AnalyticsResult, chatData: ChatData): string {
-  const pdfContent = createAnalyticsPDFDocument(analytics, chatData);
-  return `data:application/pdf;base64,${btoa(pdfContent)}`;
-}
-
-function createAnalyticsPDFDocument(analytics: AnalyticsResult, chatData: ChatData): string {
-  const pageWidth = 612;
-  const pageHeight = 792;
-  const margin = 48;
-  const bottomMargin = 48;
-  const lineHeight = 15;
-  const contentWidth = pageWidth - margin * 2;
-  const pages: string[][] = [[]];
-  let y = pageHeight - margin;
-
-  const addTextCommand = (text: string, size = 10, bold = false) => {
-    if (y < bottomMargin) {
-      pages.push([]);
-      y = pageHeight - margin;
-    }
-
-    const font = bold ? "F2" : "F1";
-    pages[pages.length - 1].push(
-      `BT /${font} ${size} Tf ${margin} ${y} Td (${escapePDFText(text)}) Tj ET`
-    );
-    y -= size + 5;
-  };
-
-  const addLine = (text = "", size = 10, bold = false) => {
-    if (!text) {
-      y -= lineHeight;
-      return;
-    }
-
-    const maxChars = Math.max(24, Math.floor(contentWidth / (size * 0.52)));
-    wrapText(sanitizePDFText(text), maxChars).forEach((line) => addTextCommand(line, size, bold));
-  };
-
-  const addSection = (title: string) => {
-    y -= 8;
-    addLine(title.toUpperCase(), 13, true);
-    addLine("-".repeat(74), 8);
-  };
-
-  const dateRange = `${chatData.dateRange.start.toLocaleDateString()} - ${chatData.dateRange.end.toLocaleDateString()}`;
-  const maxDayMessages = Math.max(...Object.values(analytics.contentAnalysis.messagesDayOfWeek), 1);
-  const maxHourlyMessages = Math.max(...analytics.hourlyActivity.map((h) => h.messageCount), 1);
-
-  addLine("Telegram Chat Analytics Report", 20, true);
-  addLine(`Generated: ${new Date().toLocaleString()}`);
-  addLine(`Period: ${dateRange}`);
-  addLine("");
-
-  addSection("Overview Summary");
-  addLine(`Total messages: ${chatData.messages.length.toLocaleString()}`);
-  addLine(`Unique users: ${chatData.users.size}`);
-  addLine(`Average message length: ${Math.round(analytics.summary.averageMessageLength)} chars`);
-  addLine(`Messages with media: ${analytics.summary.messagesWithMedia.toLocaleString()}`);
-  addLine(`Media percentage: ${Math.round(analytics.summary.mediaPercentage)}%`);
-
-  addSection("Top Contributors");
-  analytics.userStats.slice(0, 10).forEach((user, index) => {
-    addLine(
-      `${index + 1}. ${user.name} - ${user.messageCount.toLocaleString()} messages (${user.percentage.toFixed(1)}%)`
-    );
-  });
-
-  addSection("Most Used Words");
-  addLine(
-    analytics.topWords
-      .slice(0, 25)
-      .map((word) => `${word.word} (${word.count})`)
-      .join(", ")
+function createPDFRenderRoot(
+  analytics: AnalyticsResult,
+  chatData: ChatData,
+  filename: string
+): HTMLDivElement {
+  const reportDocument = new DOMParser().parseFromString(
+    createComprehensivePDFContent(analytics, chatData, filename),
+    "text/html"
   );
+  const styles = reportDocument.querySelector("style");
+  const page = reportDocument.querySelector(".page");
+  const renderRoot = document.createElement("div");
 
-  addSection("Activity by Day of Week");
-  Object.entries(analytics.contentAnalysis.messagesDayOfWeek).forEach(([day, count]) => {
-    const bar = "#".repeat(Math.max(1, Math.round((count / maxDayMessages) * 24)));
-    addLine(`${day.padEnd(10)} ${String(count).padStart(6)}  ${bar}`);
-  });
+  renderRoot.style.position = "fixed";
+  renderRoot.style.left = "-10000px";
+  renderRoot.style.top = "0";
+  renderRoot.style.width = "900px";
+  renderRoot.style.background = "#ffffff";
+  renderRoot.style.zIndex = "-1";
 
-  addSection("Top Reactions");
-  analytics.topEmojis.slice(0, 15).forEach((emoji, index) => {
-    const topReactors = emoji.topReactors
-      .slice(0, 3)
-      .map((reactor) => `${reactor.name} (${reactor.count})`)
-      .join(", ");
-    addLine(`${index + 1}. ${emoji.emoji} - ${emoji.count} reactions - ${topReactors}`);
-  });
+  if (styles) renderRoot.appendChild(styles.cloneNode(true));
+  if (page) renderRoot.appendChild(page.cloneNode(true));
 
-  addSection("Detailed Analysis");
-  addLine(`Messages per day average: ${(chatData.messages.length / analytics.timeline.length).toFixed(1)}`);
-  addLine(`Days active: ${analytics.timeline.length}`);
-  addLine(`Total reactions: ${analytics.engagement.totalReactions}`);
-  addLine(`Average reactions per message: ${analytics.engagement.averageReactionsPerMessage.toFixed(2)}`);
-
-  addSection("Hourly Activity Distribution");
-  analytics.hourlyActivity.forEach((hour) => {
-    const paddedHour = String(hour.hour).padStart(2, "0");
-    const bar = "#".repeat(Math.max(1, Math.round((hour.messageCount / maxHourlyMessages) * 24)));
-    addLine(`${paddedHour}:00 ${String(hour.messageCount).padStart(6)}  ${bar}`);
-  });
-
-  addLine("");
-  addLine("All data is processed locally in your browser. No data is sent to servers.", 9);
-
-  return buildPDF(pages);
-}
-
-function buildPDF(pageStreams: string[][]): string {
-  const objects: string[] = [
-    "<< /Type /Catalog /Pages 2 0 R >>",
-    "",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>",
-  ];
-  const pageObjectNumbers: number[] = [];
-
-  pageStreams.forEach((commands) => {
-    const stream = commands.join("\n");
-    const contentObjectNumber = objects.length + 1;
-    objects.push(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
-
-    const pageObjectNumber = objects.length + 1;
-    pageObjectNumbers.push(pageObjectNumber);
-    objects.push(
-      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentObjectNumber} 0 R >>`
-    );
-  });
-
-  objects[1] = `<< /Type /Pages /Kids [${pageObjectNumbers.map((num) => `${num} 0 R`).join(" ")}] /Count ${pageObjectNumbers.length} >>`;
-
-  let pdf = "%PDF-1.4\n";
-  const offsets = [0];
-  objects.forEach((object, index) => {
-    offsets.push(pdf.length);
-    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
-  });
-
-  const xrefOffset = pdf.length;
-  pdf += `xref\n0 ${objects.length + 1}\n`;
-  pdf += "0000000000 65535 f \n";
-  offsets.slice(1).forEach((offset) => {
-    pdf += `${String(offset).padStart(10, "0")} 00000 n \n`;
-  });
-  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
-
-  return pdf;
-}
-
-function sanitizePDFText(text: string): string {
-  return text.replace(/[^\x20-\x7E]/g, "?");
-}
-
-function escapePDFText(text: string): string {
-  return sanitizePDFText(text).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
-}
-
-function wrapText(text: string, maxChars: number): string[] {
-  const words = text.split(/\s+/);
-  const lines: string[] = [];
-  let current = "";
-
-  words.forEach((word) => {
-    if (!current) {
-      current = word;
-      return;
-    }
-
-    if (`${current} ${word}`.length <= maxChars) {
-      current += ` ${word}`;
-    } else {
-      lines.push(current);
-      current = word;
-    }
-  });
-
-  if (current) lines.push(current);
-  return lines;
+  return renderRoot;
 }
 
 function escapeHTML(value: string): string {
@@ -344,8 +209,7 @@ function escapeHTML(value: string): string {
 function createComprehensivePDFContent(
   analytics: AnalyticsResult,
   chatData: ChatData,
-  filename: string,
-  pdfDataUrl: string
+  filename: string
 ): string {
   const styles = `
     <style>
@@ -419,7 +283,7 @@ function createComprehensivePDFContent(
     </head>
     <body>
       <div class="export-actions">
-        <a class="export-button download-button" href="${pdfDataUrl}" download="${escapeHTML(filename)}" target="_blank" rel="noopener">Download PDF</a>
+        <button class="export-button download-button" onclick="window.print()">Download PDF</button>
         <button class="export-button print-button" onclick="window.print()">Print</button>
       </div>
       <div class="page">
