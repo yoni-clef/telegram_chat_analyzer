@@ -54,7 +54,7 @@ export function InstructionsCard() {
 
       <div className="mt-4 p-3 bg-white rounded-lg border border-accent/10">
         <p className="text-xs text-ink/70">
-          <span className="font-semibold">💡 Tip:</span> Your data stays completely private - everything is processed locally in your browser with zero server uploads.
+          <span className="font-semibold">💡 Tip:</span>If you want fast analytics when you export your data don't export photos,videos  - Your data stays completely private - everything is processed locally in your browser with zero server uploads.
         </p>
       </div>
     </div>

@@ -7,7 +7,7 @@ export function App() {
   return (
     <div className="min-h-screen bg-haze text-ink">
       <header className="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
-        <div className="text-xl font-semibold text-ocean">Telegram Analytics</div>
+        <div className="text-xl font-semibold text-ocean">Telegram Chat Analytics</div>
         <nav className="flex gap-4 text-sm">
           <NavLink to="/dashboard" className="hover:text-accent">
             Dashboard
