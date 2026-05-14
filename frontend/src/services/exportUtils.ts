@@ -98,7 +98,7 @@ export function exportAnalyticsAsPDF(
 ) {
   try {
     // Create a comprehensive HTML page for PDF export
-    const htmlContent = createComprehensivePDFContent(analytics, chatData);
+    const htmlContent = createComprehensivePDFContent(analytics, chatData, filename);
     
     // Open in new window for printing
     const printWindow = window.open("", "_blank");
@@ -125,11 +125,37 @@ export function exportAnalyticsAsPDF(
 /**
  * Create comprehensive printable PDF content with all sections
  */
-function createComprehensivePDFContent(analytics: AnalyticsResult, chatData: ChatData): string {
+function createComprehensivePDFContent(
+  analytics: AnalyticsResult,
+  chatData: ChatData,
+  filename: string
+): string {
   const styles = `
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; }
+      .export-actions {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.96);
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+      }
+      .export-button {
+        border: 0;
+        border-radius: 6px;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .download-button { background: #7c3aed; color: white; }
+      .print-button { background: #e2e8f0; color: #1e293b; }
       .page { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
       .header { text-align: center; margin-bottom: 40px; border-bottom: 3px solid #7c3aed; padding-bottom: 20px; }
       .header h1 { font-size: 32px; margin-bottom: 10px; color: #1e293b; }
@@ -152,6 +178,7 @@ function createComprehensivePDFContent(analytics: AnalyticsResult, chatData: Cha
       .bar { background: linear-gradient(to right, #d8b4fe, #7c3aed); height: 20px; border-radius: 3px; margin: 5px 0; }
       @media print {
         body { margin: 0; padding: 0; }
+        .export-actions { display: none; }
         .page { padding: 20px; max-width: 100%; }
         .page-break { page-break-after: always; }
       }
@@ -159,16 +186,21 @@ function createComprehensivePDFContent(analytics: AnalyticsResult, chatData: Cha
   `;
 
   const dateRange = `${chatData.dateRange.start.toLocaleDateString()} - ${chatData.dateRange.end.toLocaleDateString()}`;
+  const reportTitle = filename.replace(/\.pdf$/i, "");
   
   const html = `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="UTF-8">
-      <title>Telegram Chat Analytics Report</title>
+      <title>${reportTitle}</title>
       ${styles}
     </head>
     <body>
+      <div class="export-actions">
+        <button class="export-button download-button" onclick="window.print()">Download PDF</button>
+        <button class="export-button print-button" onclick="window.print()">Print</button>
+      </div>
       <div class="page">
         <div class="date-generated">Generated: ${new Date().toLocaleString()}</div>
         
