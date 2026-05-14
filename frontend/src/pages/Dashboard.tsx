@@ -121,12 +121,12 @@ export function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="max-w-full mx-auto p-6">
+      <div className="max-w-full mx-auto p-3 sm:p-4 md:p-6">
         {/* Header */}
-        <div className="flex justify-between items-start mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-ink mb-2">Chat Analytics</h1>
-            <p className="text-ink/60">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-6 sm:mb-8 gap-4 sm:gap-0">
+          <div className="min-w-0">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-ink mb-1 sm:mb-2">Chat Analytics</h1>
+            <p className="text-sm sm:text-base text-ink/60">
               {formatDateRange(
                 new Date(analytics.summary.dateRange.start),
                 new Date(analytics.summary.dateRange.end)
@@ -138,19 +138,19 @@ export function DashboardPage() {
               localStorage.removeItem("chatAnalytics");
               navigate("/upload");
             }}
-            className="rounded-lg border border-ink/20 px-4 py-2 text-ink hover:bg-white/50"
+            className="rounded-lg border border-ink/20 px-3 sm:px-4 py-2 text-sm sm:text-base text-ink hover:bg-white/50 whitespace-nowrap"
           >
             New Analysis
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex gap-2 mb-8 bg-white rounded-lg shadow-sm p-2">
+        <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8 bg-white rounded-lg shadow-sm p-2">
           {(["overview", "detailed", "ai", "export"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded font-medium transition ${
+              className={`px-2 sm:px-4 py-2 text-xs sm:text-sm rounded font-medium transition whitespace-nowrap ${
                 activeTab === tab
                   ? "bg-accent text-white"
                   : "text-ink/70 hover:bg-slate-100"
@@ -183,9 +183,9 @@ export function DashboardPage() {
 
 function OverviewTab({ analytics }: { analytics: AnalyticsResult }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
         <SummaryCard
           title="Total Messages"
           value={formatNumber(analytics.summary.totalMessages)}
@@ -209,10 +209,10 @@ function OverviewTab({ analytics }: { analytics: AnalyticsResult }) {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Top Users */}
-        <div className="lg:col-span-1 bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Top Users</h2>
+        <div className="lg:col-span-1 bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Top Users</h2>
           <div className="space-y-3">
             {analytics.topUsers.slice(0, 5).map((user) => (
               <UserCard key={user.name} user={user} total={analytics.summary.totalMessages} />
@@ -221,8 +221,8 @@ function OverviewTab({ analytics }: { analytics: AnalyticsResult }) {
         </div>
 
         {/* Activity */}
-        <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Hourly Activity</h2>
+        <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Hourly Activity</h2>
           <div className="flex items-end gap-1 h-40">
             {analytics.hourlyActivity.map((hour) => {
               const maxCount = Math.max(...analytics.hourlyActivity.map((h) => h.messageCount));
@@ -244,9 +244,9 @@ function OverviewTab({ analytics }: { analytics: AnalyticsResult }) {
       </div>
 
       {/* Word Cloud & Emojis */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Most Used Words</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Most Used Words</h2>
           <div className="flex flex-wrap gap-2">
             {analytics.topWords.slice(0, 20).map((word, idx) => (
               <div
@@ -261,8 +261,8 @@ function OverviewTab({ analytics }: { analytics: AnalyticsResult }) {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Top Reactions</h2>
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Top Reactions</h2>
           <div className="space-y-3">
             {analytics.topEmojis.slice(0, 8).map((emoji, idx) => (
               <div key={idx} className="flex items-center justify-between">
@@ -280,8 +280,8 @@ function OverviewTab({ analytics }: { analytics: AnalyticsResult }) {
       </div>
 
       {/* Day of Week */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">Activity by Day</h2>
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Activity by Day</h2>
         <div className="space-y-2">
           {Object.entries(analytics.contentAnalysis.messagesDayOfWeek).map(([day, count]) => {
             const maxCount = Math.max(...Object.values(analytics.contentAnalysis.messagesDayOfWeek));
@@ -368,16 +368,16 @@ function DetailedTab({
   return (
     <div className="space-y-6">
       {/* Date Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">Filter by Date</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Filter by Date</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           <div>
             <label className="text-sm font-medium text-ink/70 block mb-2">From Date</label>
             <input
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div>
@@ -386,7 +386,7 @@ function DetailedTab({
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex items-end">
@@ -401,16 +401,16 @@ function DetailedTab({
             </button>
           </div>
         </div>
-        <p className="text-xs text-ink/50 mt-3">
+        <p className="text-xs text-ink/50 mt-2 sm:mt-3">
           Showing {filteredMessages.length} of {messages.length} messages
         </p>
       </div>
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">Response Analytics</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Response Analytics</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
           <div>
-            <p className="text-sm text-ink/60">Avg Reply Time</p>
-            <p className="text-2xl font-bold">{displayedAnalytics.responseAnalytics.averageReplyTime.toFixed(1)}m</p>
+            <p className="text-xs sm:text-sm text-ink/60">Avg Reply Time</p>
+            <p className="text-lg sm:text-2xl font-bold">{displayedAnalytics.responseAnalytics.averageReplyTime.toFixed(1)}m</p>
           </div>
           <div>
             <p className="text-sm text-ink/60">Fastest Reply</p>
@@ -428,12 +428,12 @@ function DetailedTab({
       </div>
 
       {/* Conversation Metrics */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">Conversation Metrics</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Conversation Metrics</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
           <div>
-            <p className="text-sm text-ink/60">Longest Streak</p>
-            <p className="text-2xl font-bold">{displayedAnalytics.conversationMetrics.longestConversationStreak}</p>
+            <p className="text-xs sm:text-sm text-ink/60">Longest Streak</p>
+            <p className="text-lg sm:text-2xl font-bold">{displayedAnalytics.conversationMetrics.longestConversationStreak}</p>
           </div>
           <div>
             <p className="text-sm text-ink/60">Max Inactive</p>
@@ -451,9 +451,9 @@ function DetailedTab({
       </div>
 
       {/* Media Analytics */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">Media Breakdown</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Media Breakdown</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
           {[
             { label: "Photos", count: displayedAnalytics.mediaAnalytics.photos, icon: "📷", type: "photo" },
             { label: "Videos", count: displayedAnalytics.mediaAnalytics.videos, icon: "🎬", type: "video" },
@@ -466,12 +466,12 @@ function DetailedTab({
             <div
               key={item.label}
               onClick={() => setSelectedMediaType(item.type)}
-              className="text-center p-4 rounded-lg border-2 border-transparent hover:border-accent hover:bg-accent/5 cursor-pointer transition-all"
+              className="text-center p-2 sm:p-4 rounded-lg border-2 border-transparent hover:border-accent hover:bg-accent/5 cursor-pointer transition-all"
             >
-              <p className="text-3xl mb-2">{item.icon}</p>
-              <p className="text-sm text-ink/60">{item.label}</p>
-              <p className="text-lg font-bold">{item.count}</p>
-              {item.count > 0 && <p className="text-xs text-accent mt-2">Click to view</p>}
+              <p className="text-xl sm:text-3xl mb-1 sm:mb-2">{item.icon}</p>
+              <p className="text-xs sm:text-sm text-ink/60">{item.label}</p>
+              <p className="text-base sm:text-lg font-bold">{item.count}</p>
+              {item.count > 0 && <p className="text-xs text-accent mt-1 sm:mt-2">Click to view</p>}
             </div>
           ))}
         </div>
@@ -479,9 +479,9 @@ function DetailedTab({
 
       {/* Media Viewer Modal */}
       {selectedMediaType && (
-        <div className="bg-white rounded-lg shadow-sm p-6 border-2 border-accent/20">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border-2 border-accent/20">
+          <div className="flex justify-between items-center mb-3 sm:mb-4 gap-2">
+            <h2 className="text-base sm:text-lg font-semibold truncate">
               {selectedMediaType.charAt(0).toUpperCase() + selectedMediaType.slice(1)} Messages
             </h2>
             <button
@@ -515,12 +515,12 @@ function DetailedTab({
                     blobUrl: blobUrl ? "Generated" : "Failed",
                   });
                   return (
-                    <div className="mb-6 bg-black rounded-lg overflow-hidden flex items-center justify-center max-h-96">
+                    <div className="mb-4 sm:mb-6 bg-black rounded-lg overflow-hidden flex items-center justify-center max-h-64 sm:max-h-96">
                       {selectedMediaItem.mediaType === "photo" && (
                         <img
                           src={blobUrl}
                           alt="Media"
-                          className="max-w-full max-h-96 object-contain"
+                          className="max-w-full max-h-64 sm:max-h-96 object-contain"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
                           }}
@@ -530,7 +530,7 @@ function DetailedTab({
                         <video
                           src={blobUrl}
                           controls
-                          className="max-w-full max-h-96"
+                          className="max-w-full max-h-64 sm:max-h-96"
                           onError={() => console.warn("Video failed to load")}
                         />
                       )}
@@ -568,14 +568,14 @@ function DetailedTab({
                 })()}
 
                 {/* Message Info */}
-                <div className="space-y-3 border-t pt-4">
+                <div className="space-y-2 sm:space-y-3 border-t pt-3 sm:pt-4">
                   <div>
                     <p className="text-xs text-ink/50 uppercase">From</p>
-                    <p className="font-semibold">{selectedMediaItem.senderName}</p>
+                    <p className="text-sm sm:text-base font-semibold truncate">{selectedMediaItem.senderName}</p>
                   </div>
                   <div>
                     <p className="text-xs text-ink/50 uppercase">Time</p>
-                    <p className="text-sm">{selectedMediaItem.timestamp.toLocaleString()}</p>
+                    <p className="text-xs sm:text-sm">{selectedMediaItem.timestamp.toLocaleString()}</p>
                   </div>
                   {selectedMediaItem.text && (
                     <div>
@@ -604,23 +604,23 @@ function DetailedTab({
             </div>
           ) : (
             // Media List View
-            <div className="space-y-2 max-h-96 overflow-y-auto">
+            <div className="space-y-2 max-h-80 sm:max-h-96 overflow-y-auto">
               {filteredMessages
                 .filter((msg) => msg.mediaType === selectedMediaType)
                 .map((msg, idx) => (
                   <div
                     key={idx}
                     onClick={() => setSelectedMediaItem(msg)}
-                    className="p-4 bg-slate-50 rounded-lg border-l-4 border-accent hover:bg-slate-100 cursor-pointer transition-all"
+                    className="p-3 sm:p-4 bg-slate-50 rounded-lg border-l-4 border-accent hover:bg-slate-100 cursor-pointer transition-all"
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <p className="font-semibold">{msg.senderName}</p>
+                    <div className="flex justify-between items-start mb-2 gap-2">
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-sm truncate">{msg.senderName}</p>
                         <p className="text-xs text-ink/50">
                           {msg.timestamp.toLocaleDateString()} {msg.timestamp.toLocaleTimeString()}
                         </p>
                       </div>
-                      <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded">
+                      <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded whitespace-nowrap flex-shrink-0">
                         {msg.mediaType}
                       </span>
                     </div>
@@ -635,27 +635,27 @@ function DetailedTab({
 
       {/* Sentiment Analysis */}
       {displayedAnalytics.sentimentAnalysis && (
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Sentiment Analysis</h2>
-          <div className="grid grid-cols-3 gap-4">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Sentiment Analysis</h2>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             <div className="text-center">
-              <p className="text-3xl">😊</p>
-              <p className="text-sm text-ink/60">Positive</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl sm:text-3xl">😊</p>
+              <p className="text-xs sm:text-sm text-ink/60">Positive</p>
+              <p className="text-lg sm:text-2xl font-bold text-green-600">
                 {displayedAnalytics.sentimentAnalysis.positivePercentage.toFixed(0)}%
               </p>
             </div>
             <div className="text-center">
-              <p className="text-3xl">😐</p>
-              <p className="text-sm text-ink/60">Neutral</p>
-              <p className="text-2xl font-bold text-slate-600">
+              <p className="text-2xl sm:text-3xl">😐</p>
+              <p className="text-xs sm:text-sm text-ink/60">Neutral</p>
+              <p className="text-lg sm:text-2xl font-bold text-slate-600">
                 {displayedAnalytics.sentimentAnalysis.neutralPercentage.toFixed(0)}%
               </p>
             </div>
             <div className="text-center">
-              <p className="text-3xl">😞</p>
-              <p className="text-sm text-ink/60">Negative</p>
-              <p className="text-2xl font-bold text-red-600">
+              <p className="text-2xl sm:text-3xl">😞</p>
+              <p className="text-xs sm:text-sm text-ink/60">Negative</p>
+              <p className="text-lg sm:text-2xl font-bold text-red-600">
                 {displayedAnalytics.sentimentAnalysis.negativePercentage.toFixed(0)}%
               </p>
             </div>
@@ -665,9 +665,9 @@ function DetailedTab({
 
       {/* Relationship Insights */}
       {displayedAnalytics.relationshipInsights && (
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Relationship Insights</h2>
-          <div className="space-y-4">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Relationship Insights</h2>
+          <div className="space-y-3 sm:space-y-4">
             {[
               {
                 label: "Mutual Engagement",
@@ -691,9 +691,9 @@ function DetailedTab({
               },
             ].map((item) => (
               <div key={item.label}>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium">{item.label}</span>
-                  <span className="text-sm font-bold">{Math.round(item.score)}/100</span>
+                <div className="flex justify-between mb-2 gap-2">
+                  <span className="text-xs sm:text-sm font-medium">{item.label}</span>
+                  <span className="text-xs sm:text-sm font-bold whitespace-nowrap">{Math.round(item.score)}/100</span>
                 </div>
                 <div className="w-full bg-slate-200 rounded-full h-2">
                   <div
@@ -703,9 +703,9 @@ function DetailedTab({
                 </div>
               </div>
             ))}
-            <div className="mt-4 p-3 bg-slate-50 rounded">
+            <div className="mt-3 sm:mt-4 p-3 bg-slate-50 rounded">
               {displayedAnalytics.relationshipInsights.insights.map((insight: string, idx: number) => (
-                <p key={idx} className="text-sm text-ink/70">
+                <p key={idx} className="text-xs sm:text-sm text-ink/70">
                   {insight}
                 </p>
               ))}
@@ -716,16 +716,16 @@ function DetailedTab({
 
       {/* Top Phrases */}
       {displayedAnalytics.topPhrases && displayedAnalytics.topPhrases.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Top Phrases</h2>
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Top Phrases</h2>
           <div className="space-y-2">
             {displayedAnalytics.topPhrases.map((phrase: any, idx: number) => (
-              <div key={idx} className="flex justify-between items-start p-3 bg-slate-50 rounded">
-                <div>
-                  <p className="font-medium">{phrase.phrase}</p>
-                  <p className="text-xs text-ink/60 mt-1">{phrase.examples[0]}</p>
+              <div key={idx} className="flex justify-between items-start p-3 bg-slate-50 rounded gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-sm truncate">{phrase.phrase}</p>
+                  <p className="text-xs text-ink/60 mt-1 line-clamp-1">{phrase.examples[0]}</p>
                 </div>
-                <span className="text-sm font-bold text-accent">{phrase.count}x</span>
+                <span className="text-sm font-bold text-accent flex-shrink-0">{phrase.count}x</span>
               </div>
             ))}
           </div>
@@ -754,28 +754,28 @@ function AITab({ chatData, messages }: { chatData: ChatData; messages: Message[]
   if (!aiAnalysis) return <div className="text-center py-8">Loading AI analysis...</div>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Relationship Summary */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">💬 Relationship Summary</h2>
-        <p className="text-ink/80">{aiAnalysis.relationshipSummary}</p>
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">💬 Relationship Summary</h2>
+        <p className="text-sm sm:text-base text-ink/80">{aiAnalysis.relationshipSummary}</p>
       </div>
 
       {/* Communication Style */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">📊 Communication Style</h2>
-        <p className="text-ink/80">{aiAnalysis.communicationStyle}</p>
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">📊 Communication Style</h2>
+        <p className="text-sm sm:text-base text-ink/80">{aiAnalysis.communicationStyle}</p>
       </div>
 
       {/* Main Topics */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">🏷️ Main Topics</h2>
-        <div className="space-y-3">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">🏷️ Main Topics</h2>
+        <div className="space-y-2 sm:space-y-3">
           {aiAnalysis.mainTopics.map((topic: any, idx: number) => (
             <div key={idx}>
-              <div className="flex justify-between mb-2">
-                <span className="font-medium capitalize">{topic.topic}</span>
-                <span className="text-sm text-ink/60">{topic.frequency} mentions</span>
+              <div className="flex justify-between mb-2 gap-2">
+                <span className="text-sm sm:text-base font-medium capitalize">{topic.topic}</span>
+                <span className="text-xs sm:text-sm text-ink/60 whitespace-nowrap">{topic.frequency} mentions</span>
               </div>
               <div className="w-full bg-slate-200 rounded-full h-2">
                 <div
@@ -790,13 +790,13 @@ function AITab({ chatData, messages }: { chatData: ChatData; messages: Message[]
 
       {/* Key Events */}
       {aiAnalysis.keyEvents.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">🎯 Key Events</h2>
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">🎯 Key Events</h2>
           <div className="space-y-2">
             {aiAnalysis.keyEvents.map((event: any, idx: number) => (
-              <div key={idx} className="flex gap-4 p-3 bg-slate-50 rounded">
-                <span className="font-semibold text-accent">{event.date}</span>
-                <span className="text-ink/80">{event.event}</span>
+              <div key={idx} className="flex gap-2 sm:gap-4 p-3 bg-slate-50 rounded">
+                <span className="font-semibold text-accent text-xs sm:text-base flex-shrink-0">{event.date}</span>
+                <span className="text-xs sm:text-base text-ink/80">{event.event}</span>
               </div>
             ))}
           </div>
@@ -816,10 +816,10 @@ function ExportTab({
   messages: Message[];
 }) {
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-6">📥 Export Options</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">📥 Export Options</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <button
             onClick={() =>
               exportAnalyticsAsCSV(
@@ -828,10 +828,10 @@ function ExportTab({
                 `telegram-analytics-${new Date().toISOString().split("T")[0]}.csv`
               )
             }
-            className="flex flex-col items-center justify-center p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
+            className="flex flex-col items-center justify-center p-4 sm:p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
           >
-            <span className="text-3xl mb-2">📊</span>
-            <p className="font-semibold">Analytics CSV</p>
+            <span className="text-2xl sm:text-3xl mb-2">📊</span>
+            <p className="font-semibold text-sm sm:text-base">Analytics CSV</p>
             <p className="text-xs text-ink/60 mt-1">Full analytics data</p>
           </button>
 
@@ -842,10 +842,10 @@ function ExportTab({
                 `telegram-messages-${new Date().toISOString().split("T")[0]}.csv`
               )
             }
-            className="flex flex-col items-center justify-center p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
+            className="flex flex-col items-center justify-center p-4 sm:p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
           >
-            <span className="text-3xl mb-2">💬</span>
-            <p className="font-semibold">Messages CSV</p>
+            <span className="text-2xl sm:text-3xl mb-2">💬</span>
+            <p className="font-semibold text-sm sm:text-base">Messages CSV</p>
             <p className="text-xs text-ink/60 mt-1">All messages with metadata</p>
           </button>
 
@@ -857,25 +857,25 @@ function ExportTab({
                 `telegram-analytics-${new Date().toISOString().split("T")[0]}.pdf`
               )
             }
-            className="flex flex-col items-center justify-center p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
+            className="flex flex-col items-center justify-center p-4 sm:p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
           >
-            <span className="text-3xl mb-2">📄</span>
-            <p className="font-semibold">PDF Report</p>
+            <span className="text-2xl sm:text-3xl mb-2">📄</span>
+            <p className="font-semibold text-sm sm:text-base">PDF Report</p>
             <p className="text-xs text-ink/60 mt-1">Printable report</p>
           </button>
 
           <button
             onClick={() => window.print()}
-            className="flex flex-col items-center justify-center p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
+            className="flex flex-col items-center justify-center p-4 sm:p-6 border-2 border-accent/20 rounded-lg hover:bg-accent/5 hover:border-accent transition"
           >
-            <span className="text-3xl mb-2">🖨️</span>
-            <p className="font-semibold">Print</p>
+            <span className="text-2xl sm:text-3xl mb-2">🖨️</span>
+            <p className="font-semibold text-sm sm:text-base">Print</p>
             <p className="text-xs text-ink/60 mt-1">Print current page</p>
           </button>
         </div>
       </div>
 
-      <div className="text-center text-sm text-ink/50 py-6">
+      <div className="text-center text-xs sm:text-sm text-ink/50 py-4 sm:py-6">
         <p>All data is processed locally in your browser • Nothing is sent to servers</p>
       </div>
     </div>
@@ -884,20 +884,20 @@ function ExportTab({
 
 function SummaryCard({ title, value, icon }: { title: string; value: string | number; icon: string }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <div className="text-3xl mb-2">{icon}</div>
-      <p className="text-sm text-ink/60">{title}</p>
-      <p className="text-2xl font-bold text-ink mt-2">{value}</p>
+    <div className="bg-white rounded-lg shadow-sm p-3 sm:p-6">
+      <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">{icon}</div>
+      <p className="text-xs sm:text-sm text-ink/60">{title}</p>
+      <p className="text-lg sm:text-2xl font-bold text-ink mt-1 sm:mt-2">{value}</p>
     </div>
   );
 }
 
 function UserCard({ user, total }: { user: any; total: number }) {
   return (
-    <div className="bg-slate-50 rounded-lg p-3">
+    <div className="bg-slate-50 rounded-lg p-2 sm:p-3">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm text-ink truncate">{user.name}</p>
+          <p className="font-semibold text-xs sm:text-sm text-ink truncate">{user.name}</p>
           <p className="text-xs text-ink/60">{user.messageCount} messages</p>
         </div>
         <div className="text-right">
