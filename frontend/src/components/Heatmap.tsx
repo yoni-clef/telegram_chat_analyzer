@@ -109,13 +109,13 @@ export function HourlyHeatmap({ hourlyData, timeline }: HourlyHeatmapProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <h2 className="text-lg font-semibold mb-4">24-Hour Activity Pattern</h2>
-      <div className="flex gap-2">
+    <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+      <h2 className="text-base sm:text-lg font-semibold mb-4">24-Hour Activity Pattern</h2>
+      <div className="grid grid-cols-12 sm:grid-cols-[repeat(24,minmax(0,1fr))] gap-x-1.5 gap-y-4 sm:gap-x-2">
         {hourlyData.map((hour) => (
-          <div key={hour.hour} className="flex flex-col items-center">
+          <div key={hour.hour} className="flex min-w-0 flex-col items-center justify-end">
             <div
-              className={`w-8 h-16 rounded border border-slate-200 flex items-end justify-center text-xs font-bold text-white hover:ring-2 hover:ring-accent cursor-pointer transition ${getIntensity(
+              className={`w-full max-w-8 rounded border border-slate-200 flex items-end justify-center text-[10px] sm:text-xs font-bold text-white hover:ring-2 hover:ring-accent cursor-pointer transition ${getIntensity(
                 hour.messageCount
               )}`}
               style={{
@@ -125,7 +125,7 @@ export function HourlyHeatmap({ hourlyData, timeline }: HourlyHeatmapProps) {
             >
               {hour.messageCount > 0 && hour.messageCount > maxMessages * 0.5 ? hour.messageCount : ""}
             </div>
-            <span className="text-xs text-ink/60 mt-1">{hour.hour}</span>
+            <span className="mt-1 text-[10px] sm:text-xs text-ink/60 tabular-nums">{hour.hour}</span>
           </div>
         ))}
       </div>
