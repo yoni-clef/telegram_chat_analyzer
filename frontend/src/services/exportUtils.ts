@@ -97,6 +97,11 @@ export function exportAnalyticsAsPDF(
   filename: string = "telegram-analytics.pdf"
 ) {
   try {
+    if (isMobileBrowser()) {
+      downloadPDFBlob(createAnalyticsPDFBlob(analytics, chatData), filename);
+      return;
+    }
+
     // Create a comprehensive HTML page for PDF export
     const pdfDataUrl = createAnalyticsPDFDataUrl(analytics, chatData);
     const htmlContent = createComprehensivePDFContent(analytics, chatData, filename, pdfDataUrl);
@@ -111,18 +116,37 @@ export function exportAnalyticsAsPDF(
     printWindow.document.write(htmlContent);
     printWindow.document.close();
     
-    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-    if (!isMobile) {
-      // Trigger print dialog on desktop. Mobile browsers often ignore this,
-      // so mobile users use the real PDF download link in the report toolbar.
-      setTimeout(() => {
-        printWindow.print();
-      }, 250);
-    }
+    setTimeout(() => {
+      printWindow.print();
+    }, 250);
   } catch (error) {
     console.error("PDF export error:", error);
     alert("PDF export failed. Please try again.");
   }
+}
+
+function isMobileBrowser(): boolean {
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+}
+
+function createAnalyticsPDFBlob(analytics: AnalyticsResult, chatData: ChatData): Blob {
+  return new Blob([createAnalyticsPDFDocument(analytics, chatData)], {
+    type: "application/pdf",
+  });
+}
+
+function downloadPDFBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.type = "application/pdf";
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function createAnalyticsPDFDataUrl(analytics: AnalyticsResult, chatData: ChatData): string {
